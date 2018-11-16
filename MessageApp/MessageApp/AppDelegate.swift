@@ -54,19 +54,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     conversation.isRead = dictionary["isRead"] as! Bool
                     conversation.name = dictionary["name"] as? String
                     if let name = conversation.name, let image = UIImage(named: name) {
-                        conversation.imageData = UIImagePNGRepresentation(image) 
+                        conversation.imageData = UIImagePNGRepresentation(image) as! NSData
                     }
                     conversation.phone = dictionary["phone"] as! String
                     if let messageEntity = NSEntityDescription.entity(forEntityName: "Message", in: self.coreDataStack.context) {
                         
                         // Get message from array dictionary
-                        func getMessage(from arrDic: [[String: Any]]) -> [Message] {
+                        func getMessage(from arrDic: [[String: Any]], isReceive: Bool = false) -> [Message] {
                             var arrMessage = [Message]()
                             arrDic.forEach { (dic) in
                                 let message = Message(entity: messageEntity, insertInto: self.coreDataStack.context)
                                 let dateFormatter = DateFormatter()
                                 dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss Z"
-                                message.date = dateFormatter.date(from: dic["date"] as! String)
+                                message.isReceive = isReceive
+                                message.date = dateFormatter.date(from: dic["date"] as! String) as! NSDate
                                 message.content = dic["content"] as! String
                                 arrMessage.append(message)
                             }
@@ -75,11 +76,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         
                         // Get message receive
                         let arrMessageReceiveDic = dictionary["messageReceive"] as! [[String: Any]]
-                        conversation.messageReceive = NSSet(array: getMessage(from: arrMessageReceiveDic))
+                        conversation.addToMessages(NSSet(array: getMessage(from: arrMessageReceiveDic, isReceive: true)))
+                        print("Count receive = \(arrMessageReceiveDic.count)")
                         
                         // Get message reply
                         let arrMessageReplyDic = dictionary["messageReply"] as! [[String: Any]]
-                        conversation.messageReply = NSSet(array: getMessage(from: arrMessageReplyDic))
+                        conversation.addToMessages(NSSet(array: getMessage(from: arrMessageReplyDic)))
+                        print("Count reply = \(arrMessageReplyDic.count)")
                     }
                 }
                 

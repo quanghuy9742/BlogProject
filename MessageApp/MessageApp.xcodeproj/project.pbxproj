@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2FE8E2D219ED69700559B76 /* Conversation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE8E29219ED69700559B76 /* Conversation+CoreDataClass.swift */; };
+		A2FE8E2E219ED69700559B76 /* Conversation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE8E2A219ED69700559B76 /* Conversation+CoreDataProperties.swift */; };
+		A2FE8E2F219ED69700559B76 /* Message+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE8E2B219ED69700559B76 /* Message+CoreDataClass.swift */; };
+		A2FE8E30219ED69700559B76 /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE8E2C219ED69700559B76 /* Message+CoreDataProperties.swift */; };
 		D853FDE42199CC3C00FED0D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D853FDE32199CC3C00FED0D3 /* AppDelegate.swift */; };
 		D853FDE92199CC3C00FED0D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D853FDE72199CC3C00FED0D3 /* Main.storyboard */; };
 		D853FDEB2199CC3E00FED0D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D853FDEA2199CC3E00FED0D3 /* Assets.xcassets */; };
@@ -20,6 +24,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A2FE8E29219ED69700559B76 /* Conversation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conversation+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A2FE8E2A219ED69700559B76 /* Conversation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conversation+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A2FE8E2B219ED69700559B76 /* Message+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A2FE8E2C219ED69700559B76 /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D853FDE02199CC3C00FED0D3 /* MessageApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MessageApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D853FDE32199CC3C00FED0D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D853FDE82199CC3C00FED0D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -106,6 +114,10 @@
 		D853FE18219B096900FED0D3 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				A2FE8E29219ED69700559B76 /* Conversation+CoreDataClass.swift */,
+				A2FE8E2A219ED69700559B76 /* Conversation+CoreDataProperties.swift */,
+				A2FE8E2B219ED69700559B76 /* Message+CoreDataClass.swift */,
+				A2FE8E2C219ED69700559B76 /* Message+CoreDataProperties.swift */,
 				D853FDFE219B052900FED0D3 /* CoreDataStack.swift */,
 			);
 			path = CoreData;
@@ -185,10 +197,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D853FE02219B059900FED0D3 /* MessageModel.xcdatamodeld in Sources */,
+				A2FE8E2E219ED69700559B76 /* Conversation+CoreDataProperties.swift in Sources */,
 				D853FDFB2199CFBA00FED0D3 /* MessageTableViewCell.swift in Sources */,
+				A2FE8E2D219ED69700559B76 /* Conversation+CoreDataClass.swift in Sources */,
 				D853FDF82199CEA800FED0D3 /* MessageTableViewController.swift in Sources */,
+				A2FE8E30219ED69700559B76 /* Message+CoreDataProperties.swift in Sources */,
 				D853FDE42199CC3C00FED0D3 /* AppDelegate.swift in Sources */,
 				D853FDFF219B052900FED0D3 /* CoreDataStack.swift in Sources */,
+				A2FE8E2F219ED69700559B76 /* Message+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
