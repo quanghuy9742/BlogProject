@@ -25,20 +25,42 @@ class MessageTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
+        tableView.register(UINib(nibName: "MessageTableViewCell", bundle: nil), forCellReuseIdentifier: "messageTableViewCell")
+        
         do {
             let fetchRequest: NSFetchRequest<Conversation> = NSFetchRequest<Conversation>(entityName: "Conversation")
+            let sortDescriptor = NSSortDescriptor(keyPath: #keyPath(Message.date), ascending: true)
             self.arrConverstation = try self.coreDataStack.context.fetch(fetchRequest)
-            self.tableView.reloadData()
+//            self.tableView.reloadData()
             
         } catch let error {
             print("Error = \(error)")
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrConverstation.count
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell", for: indexPath) as! MessageTableViewCell
-        cell.conversation = arrConverstation[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "messageTableViewCell", for: indexPath) as! MessageTableViewCell
+        
+        let conversation = arrConverstation[indexPath.row]
+        cell.lbName.text = conversation.name ?? ""
+        cell.lbMessageDate.text = "date"
+        cell.lbMessageContent.text = "content"
+        if let name = conversation.name {
+            cell.imgViewAvatar.image = UIImage(named: name)
+            cell.imgViewAvatar.layer.masksToBounds = true
+            cell.imgViewAvatar.layer.cornerRadius = 25
+        }
+        cell.imgViewDot.image = conversation.isRead ? UIImage(named: "dot") : nil
+    
         return cell
     }
 }

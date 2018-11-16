@@ -47,38 +47,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 // Parse file to json data
                 let jsonData = try Data(contentsOf: jsonURL)
-                guard let dictionary = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [String: Any] else {return false}
-    
-                // Create managed object
-                let conversation = Conversation(context: self.coreDataStack.context)
-                conversation.isRead = dictionary["isRead"] as! Bool
-                conversation.name = dictionary["name"] as? String
-                if let name = conversation.name, let image = UIImage(contentsOfFile: name) {
-                    conversation.imageData = image.pngData()
-                }
-                conversation.phone = dictionary["phone"] as! String
-                
-                if let messageEntity = NSEntityDescription.entity(forEntityName: "Message", in: self.coreDataStack.context) {
+                guard let arrDictionary = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [[String: Any]] else {return false}
+                arrDictionary.forEach { (dictionary) in
                     
-                    // Get message from array dictionary
-                    func getMessage(from arrDic: [[String: Any]]) -> [Message] {
-                        var arrMessage = [Message]()
-                        arrDic.forEach { (dic) in
-                            let message = Message(entity: messageEntity, insertInto: self.coreDataStack.context)
-                            message.date = dic["date"] as? Date
-                            message.content = dic["content"] as? String
-                            arrMessage.append(message)
-                        }
-                        return arrMessage
+                    // Create managed object
+                    let conversation = Conversation(context: self.coreDataStack.context)
+                    conversation.isRead = dictionary["isRead"] as! Bool
+                    conversation.name = dictionary["name"] as? String
+                    if let name = conversation.name, let image = UIImage(named: name) {
+                        conversation.imageData = image.pngData()
                     }
-                    
-                    // Get message receive
-                    let arrMessageReceiveDic = dictionary["messageReceive"] as! [[String: Any]]
-                    conversation.messageReceive = NSSet(array: getMessage(from: arrMessageReceiveDic))
-                    
-                    // Get message reply
-                    let arrMessageReplyDic = dictionary["messageReply"] as! [[String: Any]]
-                    conversation.messageReply = NSSet(array: getMessage(from: arrMessageReplyDic))
+                    conversation.phone = dictionary["phone"] as! String
+                    if let messageEntity = NSEntityDescription.entity(forEntityName: "Message", in: self.coreDataStack.context) {
+                        
+                        // Get message from array dictionary
+                        func getMessage(from arrDic: [[String: Any]]) -> [Message] {
+                            var arrMessage = [Message]()
+                            arrDic.forEach { (dic) in
+                                let message = Message(entity: messageEntity, insertInto: self.coreDataStack.context)
+                                let dateFormatter = DateFormatter()
+                                dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss Z"
+                                message.date = dateFormatter.date(from: dic["date"] as! String)
+                                message.content = dic["content"] as! String
+                                arrMessage.append(message)
+                            }
+                            return arrMessage
+                        }
+                        
+                        // Get message receive
+                        let arrMessageReceiveDic = dictionary["messageReceive"] as! [[String: Any]]
+                        conversation.messageReceive = NSSet(array: getMessage(from: arrMessageReceiveDic))
+                        
+                        // Get message reply
+                        let arrMessageReplyDic = dictionary["messageReply"] as! [[String: Any]]
+                        conversation.messageReply = NSSet(array: getMessage(from: arrMessageReplyDic))
+                    }
                 }
                 
             } catch let error {

@@ -1,8 +1,7 @@
 [
   {
     "isRead": false,
-    "name": "Jack Ma",
-    "picture": "Jack Ma.jpg",
+    "name": "Bill Gate",
     "phone": "+1 (804) 412-3481",
     "messageReceive": [
       {
@@ -67,8 +66,7 @@
   },
   {
     "isRead": false,
-    "name": "Jack Ma",
-    "picture": "Jack Ma.jpg",
+    "name": "Beyonce",
     "phone": "+1 (834) 522-2362",
     "messageReceive": [
       {
@@ -129,8 +127,7 @@
   },
   {
     "isRead": false,
-    "name": "Mark Zuckerburg",
-    "picture": "Mark Zuckerburg.jpg",
+    "name": "Nicki Minaj",
     "phone": "+1 (847) 552-2411",
     "messageReceive": [
       {
@@ -175,8 +172,7 @@
   },
   {
     "isRead": true,
-    "name": "Nicki Minaj",
-    "picture": "Nicki Minaj.jpg",
+    "name": "Mark Zuckerberg",
     "phone": "+1 (888) 505-3813",
     "messageReceive": [
       {
@@ -241,8 +237,7 @@
   },
   {
     "isRead": true,
-    "name": "Jack Ma",
-    "picture": "Jack Ma.jpg",
+    "name": "Taylor Swift",
     "phone": "+1 (949) 442-3815",
     "messageReceive": [
       {
@@ -287,8 +282,7 @@
   },
   {
     "isRead": true,
-    "name": "Jack Ma",
-    "picture": "Jack Ma.jpg",
+    "name": "Obama",
     "phone": "+1 (856) 415-2084",
     "messageReceive": [
       {
@@ -345,8 +339,7 @@
   },
   {
     "isRead": true,
-    "name": "Donald Trump",
-    "picture": "Donald Trump.jpg",
+    "name": "Jack Ma",
     "phone": "+1 (833) 508-2292",
     "messageReceive": [
       {
@@ -403,8 +396,7 @@
   },
   {
     "isRead": false,
-    "name": "Beyonce",
-    "picture": "Beyonce.jpg",
+    "name": "Donald Trump",
     "phone": "+1 (975) 454-2073",
     "messageReceive": [
       {

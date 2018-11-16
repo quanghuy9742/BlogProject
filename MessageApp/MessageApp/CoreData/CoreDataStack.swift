@@ -34,8 +34,8 @@ class CoreDataStack {
         
         do {
             try self.context.save()
-        } catch let error {
-            print("Error = \(error.localizedDescription)")
+        } catch let error as NSError {
+            print("Error = \(error.userInfo)")
         }
     }
 }
