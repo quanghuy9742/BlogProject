@@ -30,7 +30,7 @@ class MessageTableViewController: UITableViewController {
         
         do {
             let fetchRequest: NSFetchRequest<Conversation> = NSFetchRequest<Conversation>(entityName: "Conversation")
-            let sortDescriptor = NSSortDescriptor(keyPath: #keyPath(Message.date), ascending: true)
+//            let sortDescriptor = NSSortDescriptor(keyPath: #keyPath(Message.date), ascending: true)
             self.arrConverstation = try self.coreDataStack.context.fetch(fetchRequest)
 //            self.tableView.reloadData()
             

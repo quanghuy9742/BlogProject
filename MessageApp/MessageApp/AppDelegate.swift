@@ -17,9 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     public lazy var coreDataStack: CoreDataStack = {
         return CoreDataStack(modelName: "MessageModel")
     }()
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         if loadMessageData(json: "celebrity_message") {
             print("Success")
         } else {
@@ -55,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     conversation.isRead = dictionary["isRead"] as! Bool
                     conversation.name = dictionary["name"] as? String
                     if let name = conversation.name, let image = UIImage(named: name) {
-                        conversation.imageData = image.pngData()
+                        conversation.imageData = UIImagePNGRepresentation(image) 
                     }
                     conversation.phone = dictionary["phone"] as! String
                     if let messageEntity = NSEntityDescription.entity(forEntityName: "Message", in: self.coreDataStack.context) {
