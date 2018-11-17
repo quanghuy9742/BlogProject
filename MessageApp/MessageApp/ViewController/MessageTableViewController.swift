@@ -2,70 +2,50 @@
 //  MessageTableViewController.swift
 //  MessageApp
 //
-//  Created by Huynh Huy on 11/12/18.
+//  Created by Huynh Huy on 11/16/18.
 //  Copyright © 2018 Huynh Huy. All rights reserved.
 //
 
-import Foundation
-import CoreData
 import UIKit
+import CoreData
 
 class MessageTableViewController: UITableViewController {
-    
-    // MARK: - Control
-    
-    
-    // MARK: - Property
-    var arrConverstation = [Conversation]()
-    let coreDataStack: CoreDataStack = {
-        return (UIApplication.shared.delegate as! AppDelegate).coreDataStack
-    }()
-    
-    // MARK: - Function
+
+    var arrMessage: [Message]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.register(UINib(nibName: "MessageTableViewCell", bundle: nil), forCellReuseIdentifier: "messageTableViewCell")
-        
-        do {
-            let fetchRequest: NSFetchRequest<Conversation> = NSFetchRequest<Conversation>(entityName: "Conversation")
-            let sortDescriptor = NSSortDescriptor(key: #keyPath(Conversation.name), ascending: true)
-            fetchRequest.sortDescriptors = [sortDescriptor]
-            
-            self.arrConverstation = try self.coreDataStack.context.fetch(fetchRequest)
-//            self.tableView.reloadData()
-            
-            let messages: [Message] = self.arrConverstation[0].messages?.allObjects as! [Message]
-            print("Message: \(messages.map {$0.content})")
-            
-        } catch let error {
-            print("Error = \(error)")
-        }
+
+        self.tableView.register(UINib(nibName: "MessageTableViewCell", bundle: nil), forCellReuseIdentifier: "MessageCell")
+        self.tableView.separatorStyle = .none
+        self.tableView.allowsSelection = false
     }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
+
+    // MARK: - Table view data source
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrConverstation.count
+        return arrMessage.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "messageTableViewCell", for: indexPath) as! MessageTableViewCell
+        let message = arrMessage[indexPath.row]
+        let widthScreen = UIScreen.main.bounds.width
         
-        let conversation = arrConverstation[indexPath.row]
-        cell.lbName.text = conversation.name ?? ""
-        cell.lbMessageDate.text = "date"
-        cell.lbMessageContent.text = "content"
-        if let name = conversation.name {
-            cell.imgViewAvatar.image = UIImage(named: name)
-            cell.imgViewAvatar.layer.masksToBounds = true
-            cell.imgViewAvatar.layer.cornerRadius = 25
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageTableViewCell
+        cell.lbDateTime.text = Helper.getDescription(of: message.date!)
+        cell.lbContent.text = message.content
+        if message.isReceive {
+            cell.viewBackground.backgroundColor = UIColor(hexString: "#E3E3E3")
+            cell.lbContent.textColor = UIColor.darkText
+            cell.rightConstraint.constant = widthScreen * 1/4
+            cell.leftConstraint.constant = 16
+        } else {
+            cell.viewBackground.backgroundColor = UIColor.blue.withAlphaComponent(0.8)
+            cell.lbContent.textColor = UIColor.white
+            cell.leftConstraint.constant = widthScreen * 1/4
+            cell.rightConstraint.constant = 16
         }
-        cell.imgViewDot.image = conversation.isRead ? UIImage(named: "dot") : nil
-    
         return cell
     }
+
 }

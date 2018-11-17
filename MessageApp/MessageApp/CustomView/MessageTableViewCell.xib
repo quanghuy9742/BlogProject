@@ -12,83 +12,56 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageTableViewCell" rowHeight="127" id="KGk-i7-Jjw" customClass="MessageTableViewCell" customModule="MessageApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="425" height="127"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageCell" rowHeight="157" id="KGk-i7-Jjw" customClass="MessageTableViewCell" customModule="MessageApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="551" height="157"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="425" height="126.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="551" height="156.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="fku-aB-Ek7">
-                        <rect key="frame" x="8" y="57.5" width="12" height="12"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yFX-M8-63Z">
+                        <rect key="frame" x="16" y="30.5" width="519" height="126"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Content" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9M-rx-qzf">
+                                <rect key="frame" x="16" y="8" width="487" height="118"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.8901960784313725" green="0.8901960784313725" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="12" id="Syt-WP-taF"/>
-                            <constraint firstAttribute="width" secondItem="fku-aB-Ek7" secondAttribute="height" id="gHa-bt-4ka"/>
+                            <constraint firstAttribute="bottom" secondItem="t9M-rx-qzf" secondAttribute="bottom" id="0X4-hA-P9P"/>
+                            <constraint firstAttribute="trailing" secondItem="t9M-rx-qzf" secondAttribute="trailing" constant="16" id="6oE-uQ-OEF"/>
+                            <constraint firstItem="t9M-rx-qzf" firstAttribute="leading" secondItem="yFX-M8-63Z" secondAttribute="leading" constant="16" id="cN7-WZ-B34"/>
+                            <constraint firstItem="t9M-rx-qzf" firstAttribute="top" secondItem="yFX-M8-63Z" secondAttribute="top" constant="8" id="etS-rB-Aws"/>
                         </constraints>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_contact" translatesAutoresizingMaskIntoConstraints="NO" id="rhT-ec-KOi">
-                        <rect key="frame" x="28" y="31.5" width="63.5" height="63.5"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="rhT-ec-KOi" secondAttribute="height" id="OIM-nz-gH7"/>
-                        </constraints>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vietcombank" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUs-u8-iHX">
-                        <rect key="frame" x="99.5" y="16" width="104" height="21"/>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqD-eq-hBg">
+                        <rect key="frame" x="247.5" y="8" width="56" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="21:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lF6-Ca-sLP">
-                        <rect key="frame" x="361" y="18" width="36" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="THU PHI DICH VU SMS CHU DONG THANG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogU-Ju-gAf">
-                        <rect key="frame" x="99.5" y="36" width="317.5" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="QZi-Mo-7zK">
-                        <rect key="frame" x="405" y="20.5" width="12" height="12"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="QZi-Mo-7zK" secondAttribute="height" id="eoF-9b-nJ2"/>
-                            <constraint firstAttribute="width" constant="12" id="k1M-md-5cD"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="fku-aB-Ek7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="1iP-zo-2dW"/>
-                    <constraint firstAttribute="trailing" secondItem="ogU-Ju-gAf" secondAttribute="trailing" constant="8" id="2ql-pS-ItA"/>
-                    <constraint firstItem="lF6-Ca-sLP" firstAttribute="centerY" secondItem="QZi-Mo-7zK" secondAttribute="centerY" id="J2Q-WE-KYE"/>
-                    <constraint firstItem="QZi-Mo-7zK" firstAttribute="centerY" secondItem="qUs-u8-iHX" secondAttribute="centerY" id="J45-v9-71F"/>
-                    <constraint firstItem="QZi-Mo-7zK" firstAttribute="leading" secondItem="lF6-Ca-sLP" secondAttribute="trailing" constant="8" id="NLQ-lR-Rga"/>
-                    <constraint firstItem="fku-aB-Ek7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="SMn-Bz-ONm"/>
-                    <constraint firstItem="rhT-ec-KOi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Uor-nI-Qw8"/>
-                    <constraint firstItem="ogU-Ju-gAf" firstAttribute="top" secondItem="qUs-u8-iHX" secondAttribute="bottom" id="Xzg-mr-o8Q"/>
-                    <constraint firstItem="rhT-ec-KOi" firstAttribute="leading" secondItem="fku-aB-Ek7" secondAttribute="trailing" constant="8" id="YvU-kL-gq4"/>
-                    <constraint firstItem="rhT-ec-KOi" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="1/2" id="axD-Zp-pn4"/>
-                    <constraint firstAttribute="trailing" secondItem="QZi-Mo-7zK" secondAttribute="trailing" constant="8" id="plS-zc-8yz"/>
-                    <constraint firstItem="qUs-u8-iHX" firstAttribute="leading" secondItem="rhT-ec-KOi" secondAttribute="trailing" constant="8" id="sS3-1a-97o"/>
-                    <constraint firstItem="qUs-u8-iHX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="vO1-6J-et3"/>
-                    <constraint firstItem="ogU-Ju-gAf" firstAttribute="leading" secondItem="qUs-u8-iHX" secondAttribute="leading" id="zM7-fh-wS2"/>
+                    <constraint firstItem="yFX-M8-63Z" firstAttribute="top" secondItem="wqD-eq-hBg" secondAttribute="bottom" constant="8" id="5DO-ft-YEP"/>
+                    <constraint firstItem="yFX-M8-63Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="8M2-Q3-cFO"/>
+                    <constraint firstAttribute="trailing" secondItem="yFX-M8-63Z" secondAttribute="trailing" constant="16" id="9ly-3N-IKO"/>
+                    <constraint firstItem="wqD-eq-hBg" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Inv-jW-0q4"/>
+                    <constraint firstAttribute="bottom" secondItem="yFX-M8-63Z" secondAttribute="bottom" id="MjW-qh-F5E"/>
+                    <constraint firstItem="wqD-eq-hBg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Pe2-km-hvC"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="imgViewAvatar" destination="rhT-ec-KOi" id="nsX-LN-Q30"/>
-                <outlet property="imgViewDot" destination="fku-aB-Ek7" id="fWG-uk-bsZ"/>
-                <outlet property="lbMessageContent" destination="ogU-Ju-gAf" id="vfY-3E-Cc4"/>
-                <outlet property="lbMessageDate" destination="lF6-Ca-sLP" id="PKf-v0-ViE"/>
-                <outlet property="lbName" destination="qUs-u8-iHX" id="w2a-Tl-Q7a"/>
+                <outlet property="lbContent" destination="t9M-rx-qzf" id="Zu3-Aq-tKH"/>
+                <outlet property="lbDateTime" destination="wqD-eq-hBg" id="b38-oj-tPb"/>
+                <outlet property="leftConstraint" destination="8M2-Q3-cFO" id="mVq-B9-Ng0"/>
+                <outlet property="rightConstraint" destination="9ly-3N-IKO" id="ylc-G1-ChN"/>
+                <outlet property="viewBackground" destination="yFX-M8-63Z" id="BdC-Sq-LQZ"/>
             </connections>
-            <point key="canvasLocation" x="4" y="192.05397301349328"/>
+            <point key="canvasLocation" x="8.8000000000000007" y="167.76611694152925"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="arrow" width="198" height="386"/>
-        <image name="dot" width="1250" height="1250"/>
-        <image name="image_contact" width="416" height="416"/>
-    </resources>
 </document>

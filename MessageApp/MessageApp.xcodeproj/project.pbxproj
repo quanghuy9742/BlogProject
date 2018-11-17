@@ -15,12 +15,17 @@
 		D853FDE92199CC3C00FED0D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D853FDE72199CC3C00FED0D3 /* Main.storyboard */; };
 		D853FDEB2199CC3E00FED0D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D853FDEA2199CC3E00FED0D3 /* Assets.xcassets */; };
 		D853FDEE2199CC3E00FED0D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D853FDEC2199CC3E00FED0D3 /* LaunchScreen.storyboard */; };
-		D853FDF82199CEA800FED0D3 /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D853FDF72199CEA800FED0D3 /* MessageTableViewController.swift */; };
-		D853FDFB2199CFBA00FED0D3 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D853FDF92199CFBA00FED0D3 /* MessageTableViewCell.swift */; };
-		D853FDFC2199CFBA00FED0D3 /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D853FDFA2199CFBA00FED0D3 /* MessageTableViewCell.xib */; };
+		D853FDF82199CEA800FED0D3 /* ConversationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D853FDF72199CEA800FED0D3 /* ConversationTableViewController.swift */; };
+		D853FDFB2199CFBA00FED0D3 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D853FDF92199CFBA00FED0D3 /* ConversationTableViewCell.swift */; };
+		D853FDFC2199CFBA00FED0D3 /* ConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D853FDFA2199CFBA00FED0D3 /* ConversationTableViewCell.xib */; };
 		D853FDFF219B052900FED0D3 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D853FDFE219B052900FED0D3 /* CoreDataStack.swift */; };
 		D853FE02219B059900FED0D3 /* MessageModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D853FE00219B059900FED0D3 /* MessageModel.xcdatamodeld */; };
 		D853FE1A219B2F4B00FED0D3 /* celebrity_message.json in Resources */ = {isa = PBXBuildFile; fileRef = D853FE19219B2F4B00FED0D3 /* celebrity_message.json */; };
+		D85B2904219F2D5400C10D91 /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85B2903219F2D5400C10D91 /* MessageTableViewController.swift */; };
+		D85B2907219FEC0900C10D91 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85B2905219FEC0900C10D91 /* MessageTableViewCell.swift */; };
+		D85B2908219FEC0900C10D91 /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D85B2906219FEC0900C10D91 /* MessageTableViewCell.xib */; };
+		D85B290B219FF26F00C10D91 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85B290A219FF26F00C10D91 /* Extension.swift */; };
+		D85B290D21A0102200C10D91 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85B290C21A0102200C10D91 /* Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,12 +39,17 @@
 		D853FDEA2199CC3E00FED0D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D853FDED2199CC3E00FED0D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D853FDEF2199CC3E00FED0D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D853FDF72199CEA800FED0D3 /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
-		D853FDF92199CFBA00FED0D3 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
-		D853FDFA2199CFBA00FED0D3 /* MessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
+		D853FDF72199CEA800FED0D3 /* ConversationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewController.swift; sourceTree = "<group>"; };
+		D853FDF92199CFBA00FED0D3 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		D853FDFA2199CFBA00FED0D3 /* ConversationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationTableViewCell.xib; sourceTree = "<group>"; };
 		D853FDFE219B052900FED0D3 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		D853FE01219B059900FED0D3 /* MessageModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MessageModel.xcdatamodel; sourceTree = "<group>"; };
 		D853FE19219B2F4B00FED0D3 /* celebrity_message.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = celebrity_message.json; path = CelebrityPictures/celebrity_message.json; sourceTree = "<group>"; };
+		D85B2903219F2D5400C10D91 /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
+		D85B2905219FEC0900C10D91 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		D85B2906219FEC0900C10D91 /* MessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
+		D85B290A219FF26F00C10D91 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		D85B290C21A0102200C10D91 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +87,7 @@
 				D853FE17219B095C00FED0D3 /* ViewController */,
 				D853FE16219B08D000FED0D3 /* Storyboard */,
 				D853FDFD2199CFC100FED0D3 /* CustomView */,
+				D85B2909219FF25600C10D91 /* Util */,
 				D853FDE32199CC3C00FED0D3 /* AppDelegate.swift */,
 				D853FDEA2199CC3E00FED0D3 /* Assets.xcassets */,
 				D853FDEF2199CC3E00FED0D3 /* Info.plist */,
@@ -88,8 +99,10 @@
 		D853FDFD2199CFC100FED0D3 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				D853FDF92199CFBA00FED0D3 /* MessageTableViewCell.swift */,
-				D853FDFA2199CFBA00FED0D3 /* MessageTableViewCell.xib */,
+				D853FDF92199CFBA00FED0D3 /* ConversationTableViewCell.swift */,
+				D853FDFA2199CFBA00FED0D3 /* ConversationTableViewCell.xib */,
+				D85B2905219FEC0900C10D91 /* MessageTableViewCell.swift */,
+				D85B2906219FEC0900C10D91 /* MessageTableViewCell.xib */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -106,7 +119,8 @@
 		D853FE17219B095C00FED0D3 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				D853FDF72199CEA800FED0D3 /* MessageTableViewController.swift */,
+				D853FDF72199CEA800FED0D3 /* ConversationTableViewController.swift */,
+				D85B2903219F2D5400C10D91 /* MessageTableViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -121,6 +135,15 @@
 				D853FDFE219B052900FED0D3 /* CoreDataStack.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		D85B2909219FF25600C10D91 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				D85B290A219FF26F00C10D91 /* Extension.swift */,
+				D85B290C21A0102200C10D91 /* Helper.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,8 +205,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D853FDEE2199CC3E00FED0D3 /* LaunchScreen.storyboard in Resources */,
+				D85B2908219FEC0900C10D91 /* MessageTableViewCell.xib in Resources */,
 				D853FE1A219B2F4B00FED0D3 /* celebrity_message.json in Resources */,
-				D853FDFC2199CFBA00FED0D3 /* MessageTableViewCell.xib in Resources */,
+				D853FDFC2199CFBA00FED0D3 /* ConversationTableViewCell.xib in Resources */,
 				D853FDEB2199CC3E00FED0D3 /* Assets.xcassets in Resources */,
 				D853FDE92199CC3C00FED0D3 /* Main.storyboard in Resources */,
 			);
@@ -198,11 +222,15 @@
 			files = (
 				D853FE02219B059900FED0D3 /* MessageModel.xcdatamodeld in Sources */,
 				A2FE8E2E219ED69700559B76 /* Conversation+CoreDataProperties.swift in Sources */,
-				D853FDFB2199CFBA00FED0D3 /* MessageTableViewCell.swift in Sources */,
+				D85B2904219F2D5400C10D91 /* MessageTableViewController.swift in Sources */,
+				D85B290B219FF26F00C10D91 /* Extension.swift in Sources */,
+				D853FDFB2199CFBA00FED0D3 /* ConversationTableViewCell.swift in Sources */,
+				D85B2907219FEC0900C10D91 /* MessageTableViewCell.swift in Sources */,
 				A2FE8E2D219ED69700559B76 /* Conversation+CoreDataClass.swift in Sources */,
-				D853FDF82199CEA800FED0D3 /* MessageTableViewController.swift in Sources */,
+				D853FDF82199CEA800FED0D3 /* ConversationTableViewController.swift in Sources */,
 				A2FE8E30219ED69700559B76 /* Message+CoreDataProperties.swift in Sources */,
 				D853FDE42199CC3C00FED0D3 /* AppDelegate.swift in Sources */,
+				D85B290D21A0102200C10D91 /* Helper.swift in Sources */,
 				D853FDFF219B052900FED0D3 /* CoreDataStack.swift in Sources */,
 				A2FE8E2F219ED69700559B76 /* Message+CoreDataClass.swift in Sources */,
 			);

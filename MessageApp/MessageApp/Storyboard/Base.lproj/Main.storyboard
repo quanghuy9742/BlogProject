@@ -6,14 +6,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Message Table View Controller-->
+        <!--Messages-->
         <scene sceneID="crc-kn-T6Y">
             <objects>
-                <tableViewController id="tMq-2n-yqN" customClass="MessageTableViewController" customModule="MessageApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="tMq-2n-yqN" customClass="ConversationTableViewController" customModule="MessageApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Dgg-zd-4wO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,31 +22,43 @@
                             <outlet property="delegate" destination="tMq-2n-yqN" id="u1v-l3-Dtt"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="cHg-rS-oYR">
-                        <barButtonItem key="leftBarButtonItem" title="Edit" id="kHN-fL-kmw"/>
+                    <navigationItem key="navigationItem" title="Messages" id="cHg-rS-oYR">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="kHN-fL-kmw">
+                            <connections>
+                                <action selector="editAction:" destination="tMq-2n-yqN" id="CFA-uO-YvJ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="compose" id="R4t-2q-wO1">
+                            <connections>
+                                <action selector="composeAction:" destination="tMq-2n-yqN" id="JsI-98-qWj"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="ZzY-Hs-MBV" kind="show" id="nv4-51-yxW"/>
+                        <segue destination="HAa-3k-Uki" kind="show" id="TST-uD-5EV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3a-x0-MGh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="144.80000000000001" y="156.97151424287858"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="giu-2K-huK">
+        <!--Message Table View Controller-->
+        <scene sceneID="5ot-St-jVU">
             <objects>
-                <viewController id="ZzY-Hs-MBV" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="B3M-kg-wSC">
+                <tableViewController storyboardIdentifier="MessageTableViewController" id="HAa-3k-Uki" customClass="MessageTableViewController" customModule="MessageApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Nv7-N5-Jbt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="WDG-Xl-Eok"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1eQ-l0-Ktr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <connections>
+                            <outlet property="dataSource" destination="HAa-3k-Uki" id="bMH-Xc-Dah"/>
+                            <outlet property="delegate" destination="HAa-3k-Uki" id="dsk-fV-sMz"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WBn-cK-zgQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="972" y="157"/>
+            <point key="canvasLocation" x="1025" y="157"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hKf-i1-y0R">
@@ -68,4 +79,7 @@
             <point key="canvasLocation" x="-674" y="157"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="compose" width="21" height="20"/>
+    </resources>
 </document>

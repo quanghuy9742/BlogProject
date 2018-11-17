@@ -34,9 +34,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let fetchRequest: NSFetchRequest<Conversation> = NSFetchRequest<Conversation>(entityName: "Conversation")
             let count = try self.coreDataStack.context.count(for: fetchRequest)
             if count != 0 {
-                let arrConversation: [NSManagedObject] = try self.coreDataStack.context.fetch(fetchRequest)
-                arrConversation.forEach({self.coreDataStack.context.delete($0)})
-                self.coreDataStack.saveContext()
+                return false
+                
+//                // Remove all
+//                let arrConversation: [NSManagedObject] = try self.coreDataStack.context.fetch(fetchRequest)
+//                arrConversation.forEach({self.coreDataStack.context.delete($0)})
+//                self.coreDataStack.saveContext()
             }
         } catch let error {
             print("Error = \(error)")
