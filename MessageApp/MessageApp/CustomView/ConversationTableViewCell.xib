@@ -19,6 +19,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="425" height="126.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u0s-R1-Lvq">
+                        <rect key="frame" x="8" y="58.5" width="10" height="10"/>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="W0K-11-CcE"/>
+                            <constraint firstAttribute="width" secondItem="u0s-R1-Lvq" secondAttribute="height" id="omq-Be-Gvb"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="o6T-6r-VDc">
+                        <rect key="frame" x="6" y="56.5" width="14" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="14" id="db2-br-L0G"/>
+                            <constraint firstAttribute="width" secondItem="o6T-6r-VDc" secondAttribute="height" id="uRJ-2M-vgh"/>
+                        </constraints>
+                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_contact" translatesAutoresizingMaskIntoConstraints="NO" id="rhT-ec-KOi">
                         <rect key="frame" x="26" y="31.5" width="63.5" height="63.5"/>
                         <constraints>
@@ -50,21 +65,6 @@
                             <constraint firstAttribute="width" constant="12" id="k1M-md-5cD"/>
                         </constraints>
                     </imageView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u0s-R1-Lvq">
-                        <rect key="frame" x="8" y="58.5" width="10" height="10"/>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="10" id="W0K-11-CcE"/>
-                            <constraint firstAttribute="width" secondItem="u0s-R1-Lvq" secondAttribute="height" id="omq-Be-Gvb"/>
-                        </constraints>
-                    </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="o6T-6r-VDc">
-                        <rect key="frame" x="6" y="56.5" width="14" height="14"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="14" id="db2-br-L0G"/>
-                            <constraint firstAttribute="width" secondItem="o6T-6r-VDc" secondAttribute="height" id="uRJ-2M-vgh"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="ogU-Ju-gAf" secondAttribute="trailing" constant="8" id="2ql-pS-ItA"/>
@@ -87,11 +87,13 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="imgCheck" destination="o6T-6r-VDc" id="XuL-wy-8AA"/>
                 <outlet property="imgViewAvatar" destination="rhT-ec-KOi" id="nsX-LN-Q30"/>
                 <outlet property="lbMessageContent" destination="ogU-Ju-gAf" id="vfY-3E-Cc4"/>
                 <outlet property="lbMessageDate" destination="lF6-Ca-sLP" id="PKf-v0-ViE"/>
                 <outlet property="lbName" destination="qUs-u8-iHX" id="w2a-Tl-Q7a"/>
                 <outlet property="viewDot" destination="u0s-R1-Lvq" id="Xu7-7t-bUB"/>
+                <outlet property="widthConstraintViewDot" destination="W0K-11-CcE" id="UEe-ee-RmC"/>
             </connections>
             <point key="canvasLocation" x="4" y="192.05397301349328"/>
         </tableViewCell>

@@ -15,10 +15,22 @@ class ConversationTableViewCell: UITableViewCell {
     @IBOutlet weak var lbMessageContent: UILabel!
     @IBOutlet weak var imgViewAvatar: UIImageView!
     @IBOutlet weak var viewDot: UIView!
+    @IBOutlet weak var imgCheck: UIImageView!
+    @IBOutlet weak var widthConstraintViewDot: NSLayoutConstraint!
+    
+    var isCheck: Bool = false {
+        didSet {
+            if isCheck {
+                self.imgCheck.image = UIImage(named: "check")
+            } else {
+                self.imgCheck.image = UIImage(named: "uncheck")
+            }
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
         self.viewDot.layer.cornerRadius = 5.0
     }
 
