@@ -27,12 +27,15 @@ class ConversationTableViewController: UITableViewController {
                 self.barBtnEdit.title = "Edit"
                 self.navigationController?.setToolbarHidden(true, animated: true)
             }
+            self.arrDeleteConversation.removeAll()
+            self.barBtnReadAll.isEnabled = true
+            self.barBtnDelete.isEnabled = false
             self.tableView.reloadData()
         }
     }
     var arrDeleteConversation = [Conversation]()
     var arrConverstation = [Conversation]()
-    let coreDataStack: CoreDataStack = {
+    var coreDataStack: CoreDataStack = {
         return (UIApplication.shared.delegate as! AppDelegate).coreDataStack
     }()
     
@@ -47,11 +50,23 @@ class ConversationTableViewController: UITableViewController {
     }
     
     @IBAction func readAllAction(_ sender: UIBarButtonItem) {
-        self.arrConverstation.forEach { (conversation) in
-            conversation.isRead = false
+        do {
+            let batchUpdateRequest = NSBatchUpdateRequest(entityName: "Conversation")
+            batchUpdateRequest.propertiesToUpdate = [#keyPath(Conversation.isRead) : true]
+            batchUpdateRequest.resultType = .updatedObjectIDsResultType
+            let result = try self.coreDataStack.context.execute(batchUpdateRequest) as! NSBatchUpdateResult
+            
+            // Require persistent store reload only specifies object ID
+            let arrObjectID = result.result as! [NSManagedObjectID]
+            let changes = [NSUpdatedObjectsKey : arrObjectID]
+            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [self.coreDataStack.context])
+            self.coreDataStack.saveContext()
+            self.refetchData()
+            self.isEdit = false
+            
+        } catch let error as NSError {
+            print("Error = \(error.userInfo)")
         }
-        self.coreDataStack.saveContext()
-        self.isEdit = false
     }
     
     @IBAction func deleteAction(_ sender: UIBarButtonItem) {
@@ -62,7 +77,9 @@ class ConversationTableViewController: UITableViewController {
         do {
             try self.coreDataStack.context.execute(batchDeleteRequest)
             self.coreDataStack.saveContext()
+            self.refetchData()
             self.isEdit = false
+            
         } catch let error {
             print("Error = \(error)")
         }
@@ -78,17 +95,22 @@ class ConversationTableViewController: UITableViewController {
         self.navigationController?.isToolbarHidden = true
         tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "ConversationCell")
         
+        // Fetch data
+        self.refetchData()
+    }
+    
+    func refetchData() {
         // Fetch request
         do {
             let fetchRequest: NSFetchRequest<Conversation> = NSFetchRequest<Conversation>(entityName: "Conversation")
             self.arrConverstation = try self.coreDataStack.context.fetch(fetchRequest)
-        
+            
             // Sort conversation
             let sortedArrConversation = arrConverstation.sorted { (firstConversation, secondConverstation) -> Bool in
                 
                 let sortedFirstMessage = self.getSortedMessageByDate(from: firstConversation)
                 let sortedSecondMessage = self.getSortedMessageByDate(from: secondConverstation)
-
+                
                 if let firstLastDate = sortedFirstMessage.last?.date as Date?, let secondLastDate = sortedSecondMessage.last?.date as Date? {
                     return firstLastDate > secondLastDate
                 }
@@ -115,7 +137,7 @@ class ConversationTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrConverstation.count
+        return self.arrConverstation.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -132,10 +154,10 @@ class ConversationTableViewController: UITableViewController {
             cell.imgViewAvatar.layer.masksToBounds = true
             cell.imgViewAvatar.layer.cornerRadius = 25
         }
+        
         if self.isEdit {
             cell.viewDot.isHidden = true
             cell.imgCheck.isHidden = false
-            cell.imgCheck.image = UIImage(named: "uncheck")
             
             // Selected color
             let bgColorView = UIView()
@@ -143,8 +165,7 @@ class ConversationTableViewController: UITableViewController {
             cell.selectedBackgroundView = bgColorView
             
         } else {
-            cell.viewDot.isHidden = false
-            cell.viewDot.backgroundColor = conversation.isRead ? UIColor.blue.withAlphaComponent(0.8) : nil
+            cell.viewDot.isHidden = conversation.isRead
             cell.imgCheck.isHidden = true
             cell.widthConstraintViewDot.constant = 10
             
@@ -153,33 +174,29 @@ class ConversationTableViewController: UITableViewController {
             bgColorView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
             cell.selectedBackgroundView = bgColorView
         }
-    
+        
+        cell.isCheck = self.arrDeleteConversation.contains(self.arrConverstation[indexPath.row])
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.isEdit {
-            let cell = tableView.cellForRow(at: indexPath) as! ConversationTableViewCell
-            cell.isCheck = !cell.isCheck
             let conversation = self.arrConverstation[indexPath.row]
-            
-            if cell.isCheck {
+            if let index = self.arrDeleteConversation.index(of: conversation) {
+                self.arrDeleteConversation.remove(at: index)
+                if self.arrDeleteConversation.isEmpty {
+                    self.barBtnReadAll.isEnabled = true
+                    self.barBtnDelete.isEnabled = false
+                }
+            } else {
                 if self.arrDeleteConversation.isEmpty {
                     self.barBtnReadAll.isEnabled = false
                     self.barBtnDelete.isEnabled = true
                 }
                 self.arrDeleteConversation.append(conversation)
-                
-            } else {
-                if let index = self.arrDeleteConversation.index(of: conversation) {
-                    self.arrDeleteConversation.remove(at: index)
-                    
-                    if self.arrDeleteConversation.isEmpty {
-                        self.barBtnReadAll.isEnabled = true
-                        self.barBtnDelete.isEnabled = false
-                    }
-                }
             }
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
             
         } else {
             let conversation = self.arrConverstation[indexPath.row]
@@ -195,13 +212,11 @@ class ConversationTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete core data
             self.coreDataStack.context.delete(self.arrConverstation[indexPath.row])
+            self.coreDataStack.saveContext()
             
             // Delete UI
-            self.arrConverstation.remove(at: indexPath.row)
+            self.refetchData()
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            
-            // save
-            self.coreDataStack.saveContext()
         }
     }
 }

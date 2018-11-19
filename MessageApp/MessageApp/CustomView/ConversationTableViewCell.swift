@@ -40,9 +40,21 @@ class ConversationTableViewCell: UITableViewCell {
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
+        let color = viewDot.backgroundColor
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        
+        if selected {
+            self.viewDot.backgroundColor = color
+        }
+    }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        let color = viewDot.backgroundColor
+        super.setHighlighted(highlighted, animated: animated)
+        
+        if highlighted {
+            self.viewDot.backgroundColor = color
+        }
     }
     
 }
