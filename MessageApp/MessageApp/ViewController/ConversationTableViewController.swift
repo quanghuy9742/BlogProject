@@ -35,6 +35,8 @@ class ConversationTableViewController: UITableViewController {
     }
     var arrDeleteConversation = [Conversation]()
     var arrConverstation = [Conversation]()
+    
+    let searchController = UISearchController(searchResultsController: nil)
     var coreDataStack: CoreDataStack = {
         return (UIApplication.shared.delegate as! AppDelegate).coreDataStack
     }()
@@ -93,7 +95,17 @@ class ConversationTableViewController: UITableViewController {
         // Setup UI
         self.barBtnDelete.isEnabled = false
         self.navigationController?.isToolbarHidden = true
-        tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "ConversationCell")
+        self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "ConversationCell")
+        
+        self.searchController.searchResultsUpdater = self
+        self.searchController.obscuresBackgroundDuringPresentation = false
+//        self.searchController.searchBar.placeholder = "Search"
+        self.definesPresentationContext = true
+        if #available(iOS 11.0, *) {
+            self.navigationItem.searchController = self.searchController
+        } else {
+            self.tableView.tableHeaderView = self.searchController.searchBar
+        }
         
         // Fetch data
         self.refetchData()
@@ -219,4 +231,30 @@ class ConversationTableViewController: UITableViewController {
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
+}
+
+// MARK: - Search result delegate
+extension ConversationTableViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if let text = searchController.searchBar.text {
+            self.search(text: text)
+        }
+    }
+    
+    func search(text: String, scope: String = "All") {
+        if text.isEmpty {
+            self.refetchData()
+        } else {
+            let fetchRequest = NSFetchRequest<Conversation>(entityName: "Conversation")
+            fetchRequest.predicate = NSPredicate(format: "ANY messages.content CONTAINS %@", text)
+            do {
+                self.arrConverstation = try self.coreDataStack.context.fetch(fetchRequest)
+            } catch let err as NSError? {
+                print("Error = \(err!.userInfo)")
+            }
+        }
+        self.tableView.reloadData()
+    }
+    
 }

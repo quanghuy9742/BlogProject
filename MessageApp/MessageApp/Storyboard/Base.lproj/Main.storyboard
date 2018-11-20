@@ -52,21 +52,30 @@
                         <outlet property="barBtnDelete" destination="v7j-aA-sPs" id="dAa-es-ouB"/>
                         <outlet property="barBtnEdit" destination="kHN-fL-kmw" id="Xfv-lu-tjt"/>
                         <outlet property="barBtnReadAll" destination="M7y-8f-hRt" id="nsT-dR-UZ2"/>
+                        <outlet property="searchDisplayController" destination="Nhy-h9-Ygs" id="aC9-FS-bqU"/>
                         <segue destination="HAa-3k-Uki" kind="show" id="TST-uD-5EV"/>
                         <segue destination="AJ3-KD-j9h" kind="show" id="bfw-91-F3k"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3a-x0-MGh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="Nhy-h9-Ygs">
+                    <connections>
+                        <outlet property="delegate" destination="tMq-2n-yqN" id="YUf-yR-Ai5"/>
+                        <outlet property="searchContentsController" destination="tMq-2n-yqN" id="c5W-kx-0ev"/>
+                        <outlet property="searchResultsDataSource" destination="tMq-2n-yqN" id="ife-NB-j5O"/>
+                        <outlet property="searchResultsDelegate" destination="tMq-2n-yqN" id="DDY-0T-7ny"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="144.80000000000001" y="156.97151424287858"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ORt-qR-hkb">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ucn-ZK-KTH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="AJ3-KD-j9h" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="GE1-10-wyV"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ucn-ZK-KTH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1025" y="-622"/>
         </scene>
