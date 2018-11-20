@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2DD78DA21A41AB900459859 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DD78D921A41AB900459859 /* ComposeViewController.swift */; };
 		A2FE8E2D219ED69700559B76 /* Conversation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE8E29219ED69700559B76 /* Conversation+CoreDataClass.swift */; };
 		A2FE8E2E219ED69700559B76 /* Conversation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE8E2A219ED69700559B76 /* Conversation+CoreDataProperties.swift */; };
 		A2FE8E2F219ED69700559B76 /* Message+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE8E2B219ED69700559B76 /* Message+CoreDataClass.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A2DD78D921A41AB900459859 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		A2FE8E29219ED69700559B76 /* Conversation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conversation+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A2FE8E2A219ED69700559B76 /* Conversation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conversation+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A2FE8E2B219ED69700559B76 /* Message+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			children = (
 				D853FDF72199CEA800FED0D3 /* ConversationTableViewController.swift */,
 				D85B2903219F2D5400C10D91 /* MessageTableViewController.swift */,
+				A2DD78D921A41AB900459859 /* ComposeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				D85B290D21A0102200C10D91 /* Helper.swift in Sources */,
 				D853FDFF219B052900FED0D3 /* CoreDataStack.swift in Sources */,
 				A2FE8E2F219ED69700559B76 /* Message+CoreDataClass.swift in Sources */,
+				A2DD78DA21A41AB900459859 /* ComposeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
