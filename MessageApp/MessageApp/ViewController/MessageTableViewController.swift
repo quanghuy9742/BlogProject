@@ -16,6 +16,10 @@ class MessageTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if #available(iOS 11, *) {
+            self.navigationItem.largeTitleDisplayMode = .never
+        }
+        
         self.tableView.register(UINib(nibName: "MessageTableViewCell", bundle: nil), forCellReuseIdentifier: "MessageCell")
         self.tableView.separatorStyle = .none
         self.tableView.allowsSelection = false

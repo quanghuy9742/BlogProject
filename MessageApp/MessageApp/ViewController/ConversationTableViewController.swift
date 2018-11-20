@@ -73,7 +73,6 @@ class ConversationTableViewController: UITableViewController {
     
     @IBAction func deleteAction(_ sender: UIBarButtonItem) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Conversation")
-//        fetchRequest.returnsObjectsAsFaults = true
         fetchRequest.predicate = NSPredicate(format: "self IN %@", self.arrDeleteConversation)
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         do {
@@ -99,10 +98,11 @@ class ConversationTableViewController: UITableViewController {
         
         self.searchController.searchResultsUpdater = self
         self.searchController.obscuresBackgroundDuringPresentation = false
-//        self.searchController.searchBar.placeholder = "Search"
         self.definesPresentationContext = true
         if #available(iOS 11.0, *) {
             self.navigationItem.searchController = self.searchController
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+//            self.navigationItem.hidesSearchBarWhenScrolling = false
         } else {
             self.tableView.tableHeaderView = self.searchController.searchBar
         }
