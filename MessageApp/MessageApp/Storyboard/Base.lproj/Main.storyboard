@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -69,36 +68,6 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="144.80000000000001" y="156.97151424287858"/>
-        </scene>
-        <!--Compose View Controller-->
-        <scene sceneID="lco-kW-i7S">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="L4b-2E-abe" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="Eoz-6A-Ad2" customClass="ComposeViewController" customModule="MessageApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="RUu-RB-Nz8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a0F-iZ-ePz">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="New Message" id="jCL-ht-eSe">
-                                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="Ql7-Bc-GE1"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="a0F-iZ-ePz" firstAttribute="top" secondItem="Ar5-iU-Gzh" secondAttribute="top" id="9OE-IV-ona"/>
-                            <constraint firstItem="a0F-iZ-ePz" firstAttribute="trailing" secondItem="Ar5-iU-Gzh" secondAttribute="trailing" id="BFO-3e-kZe"/>
-                            <constraint firstItem="a0F-iZ-ePz" firstAttribute="leading" secondItem="Ar5-iU-Gzh" secondAttribute="leading" id="bP6-lS-hgL"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="Ar5-iU-Gzh"/>
-                    </view>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="145" y="-622"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ORt-qR-hkb">

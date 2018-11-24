@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import UIKit
+import MessageUI
 
 class ConversationTableViewController: UITableViewController {
 
@@ -36,6 +37,7 @@ class ConversationTableViewController: UITableViewController {
     var arrDeleteConversation = [Conversation]()
     var arrConverstation = [Conversation]()
     
+    var messageComposeVC: MFMessageComposeViewController!
     let searchController = UISearchController(searchResultsController: nil)
     var coreDataStack: CoreDataStack = {
         return (UIApplication.shared.delegate as! AppDelegate).coreDataStack
@@ -48,7 +50,9 @@ class ConversationTableViewController: UITableViewController {
     }
     
     @IBAction func composeAction(_ sender: UIBarButtonItem) {
-        
+        if MFMessageComposeViewController.canSendText() {
+            self.present(self.messageComposeVC, animated: true, completion: nil)
+        }
     }
     
     @IBAction func readAllAction(_ sender: UIBarButtonItem) {
@@ -90,6 +94,10 @@ class ConversationTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Message Compose
+        self.messageComposeVC = MFMessageComposeViewController()
+        self.messageComposeVC.messageComposeDelegate = self
         
         // Setup UI
         self.barBtnDelete.isEnabled = false
@@ -255,6 +263,15 @@ extension ConversationTableViewController: UISearchResultsUpdating {
             }
         }
         self.tableView.reloadData()
+    }
+    
+}
+
+// MARK: - Message Compose ViewController
+extension ConversationTableViewController: MFMessageComposeViewControllerDelegate {
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        print("\(controller.recipients) | + \(controller.body)")
     }
     
 }
