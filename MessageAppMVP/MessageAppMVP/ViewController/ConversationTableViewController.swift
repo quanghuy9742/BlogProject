@@ -35,120 +35,47 @@ class ConversationTableViewController: UITableViewController {
         }
     }
     var arrDeleteConversation = [Conversation]()
-    var arrConverstation = [Conversation]()
+    var arrConversation = [Conversation]()
     
-    var messageComposeVC: MFMessageComposeViewController!
     let searchController = UISearchController(searchResultsController: nil)
-    var coreDataStack: CoreDataStack = {
-        return (UIApplication.shared.delegate as! AppDelegate).coreDataStack
-    }()
     
-    // MARK: - Action
-    
-    @IBAction func editAction(_ sender: UIBarButtonItem) {
-        self.isEdit = !self.isEdit
-    }
-    
-    @IBAction func composeAction(_ sender: UIBarButtonItem) {
-        if MFMessageComposeViewController.canSendText() {
-            self.present(self.messageComposeVC, animated: true, completion: nil)
-        }
-    }
-    
-    @IBAction func readAllAction(_ sender: UIBarButtonItem) {
-        do {
-            let batchUpdateRequest = NSBatchUpdateRequest(entityName: "Conversation")
-            batchUpdateRequest.propertiesToUpdate = [#keyPath(Conversation.isRead) : true]
-            batchUpdateRequest.resultType = .updatedObjectIDsResultType
-            let result = try self.coreDataStack.context.execute(batchUpdateRequest) as! NSBatchUpdateResult
-            
-            // Require persistent store reload only specifies object ID
-            let arrObjectID = result.result as! [NSManagedObjectID]
-            let changes = [NSUpdatedObjectsKey : arrObjectID]
-            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [self.coreDataStack.context])
-            self.coreDataStack.saveContext()
-            self.refetchData()
-            self.isEdit = false
-
-        } catch let error as NSError {
-            print("Error = \(error.userInfo)")
-        }
-    }
-    
-    @IBAction func deleteAction(_ sender: UIBarButtonItem) {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Conversation")
-        fetchRequest.predicate = NSPredicate(format: "self IN %@", self.arrDeleteConversation)
-        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        do {
-            try self.coreDataStack.context.execute(batchDeleteRequest)
-            self.coreDataStack.saveContext()
-            self.refetchData()
-            self.isEdit = false
-            
-        } catch let error {
-            print("Error = \(error)")
-        }
-    }
+    var messagePresenter: MessagePresenter!
+    var conversationPresenter: ConversationPresenter!
     
     // MARK: - Function
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Message Compose
-        self.messageComposeVC = MFMessageComposeViewController()
-        self.messageComposeVC.messageComposeDelegate = self
+        // Setup MVP
+        self.messagePresenter = MessagePresenter(messageService: MessageService())
+        self.conversationPresenter = ConversationPresenter(conversationService: ConversationService())
+        self.conversationPresenter.attachView(conversationView: self)
         
+        // Load UI
+        setupUI()
+        
+        // Load JSON data
+        self.conversationPresenter.addConversation(json: "celebrity_message")
+    }
+    
+    func setupUI() {
         // Setup UI
         self.barBtnDelete.isEnabled = false
         self.navigationController?.isToolbarHidden = true
         self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "ConversationCell")
         
+        // Search bar
         self.searchController.searchResultsUpdater = self
         self.searchController.obscuresBackgroundDuringPresentation = false
         self.definesPresentationContext = true
+        
+        // Navigation title
         if #available(iOS 11.0, *) {
             self.navigationItem.searchController = self.searchController
             self.navigationController?.navigationBar.prefersLargeTitles = true
-//            self.navigationItem.hidesSearchBarWhenScrolling = false
         } else {
             self.tableView.tableHeaderView = self.searchController.searchBar
-        }
-        
-        // Fetch data
-        self.refetchData()
-    }
-    
-    func refetchData() {
-        // Fetch request
-        do {
-            let fetchRequest: NSFetchRequest<Conversation> = NSFetchRequest<Conversation>(entityName: "Conversation")
-            self.arrConverstation = try self.coreDataStack.context.fetch(fetchRequest)
-            
-            // Sort conversation
-            let sortedArrConversation = arrConverstation.sorted { (firstConversation, secondConverstation) -> Bool in
-                
-                let sortedFirstMessage = self.getSortedMessageByDate(from: firstConversation)
-                let sortedSecondMessage = self.getSortedMessageByDate(from: secondConverstation)
-                
-                if let firstLastDate = sortedFirstMessage.last?.date as Date?, let secondLastDate = sortedSecondMessage.last?.date as Date? {
-                    return firstLastDate > secondLastDate
-                }
-                return false
-            }
-            self.arrConverstation = sortedArrConversation
-            self.coreDataStack.saveContext()
-            
-        } catch let error {
-            print("Error = \(error)")
-        }
-    }
-    
-    func getSortedMessageByDate(from conversation: Conversation) -> [Message] {
-        let arrMessage = conversation.messages?.allObjects as! [Message]
-        return arrMessage.sorted { (firstMessage: Message, secondMessage: Message) -> Bool in
-            if let date1 = firstMessage.date as Date?, let date2 = secondMessage.date as Date?, date1 <= date2 {return true}
-            return false
         }
     }
     
@@ -157,18 +84,22 @@ class ConversationTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.arrConverstation.count
+        return self.arrConversation.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationCell", for: indexPath) as! ConversationTableViewCell
         
         // Conversation information
-        let conversation = arrConverstation[indexPath.row]
+        let conversation = arrConversation[indexPath.row]
+        let lastMessage = self.messagePresenter.getSortedMessageByDate(from: conversation).last
+        
+        // Update UI
         cell.lbName.text = conversation.name ?? ""
-        let lastMessage = self.getSortedMessageByDate(from: conversation).last
         cell.lbMessageDate.text = lastMessage != nil ? Helper.getDescription(of: lastMessage!.date!) : ""
         cell.lbMessageContent.text = lastMessage?.content
+        cell.isCheck = self.arrDeleteConversation.contains(self.arrConversation[indexPath.row])
+        
         if let name = conversation.name {
             cell.imgViewAvatar.image = UIImage(named: name)
             cell.imgViewAvatar.layer.masksToBounds = true
@@ -183,7 +114,6 @@ class ConversationTableViewController: UITableViewController {
             let bgColorView = UIView()
             bgColorView.backgroundColor = UIColor(hexString: "#007AFF").withAlphaComponent(0.1)
             cell.selectedBackgroundView = bgColorView
-            
         } else {
             cell.viewDot.isHidden = conversation.isRead
             cell.imgCheck.isHidden = true
@@ -194,15 +124,12 @@ class ConversationTableViewController: UITableViewController {
             bgColorView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
             cell.selectedBackgroundView = bgColorView
         }
-        
-        cell.isCheck = self.arrDeleteConversation.contains(self.arrConverstation[indexPath.row])
-        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.isEdit {
-            let conversation = self.arrConverstation[indexPath.row]
+            let conversation = self.arrConversation[indexPath.row]
             if let index = self.arrDeleteConversation.index(of: conversation) {
                 self.arrDeleteConversation.remove(at: index)
                 if self.arrDeleteConversation.isEmpty {
@@ -219,25 +146,48 @@ class ConversationTableViewController: UITableViewController {
             self.tableView.reloadRows(at: [indexPath], with: .automatic)
             
         } else {
-            let conversation = self.arrConverstation[indexPath.row]
+            
+            // Go to Message Table VC
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             if let messageVC = storyboard.instantiateViewController(withIdentifier: "MessageTableViewController") as? MessageTableViewController {
-                messageVC.arrMessage = self.getSortedMessageByDate(from: conversation)
+                let conversation = self.arrConversation[indexPath.row]
+                messageVC.arrMessage = self.messagePresenter.getSortedMessageByDate(from: conversation)
                 self.navigationController?.pushViewController(messageVC, animated: true)
             }
         }
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete core data
-            self.coreDataStack.context.delete(self.arrConverstation[indexPath.row])
-            self.coreDataStack.saveContext()
-            
             // Delete UI
-            self.refetchData()
+            self.arrConversation = self.conversationPresenter.deleteConversation(conversation: self.arrConversation[indexPath.row])
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
+    }
+    
+    // MARK: - Action
+    
+    @IBAction func editAction(_ sender: UIBarButtonItem) {
+        self.isEdit = !self.isEdit
+    }
+    
+    @IBAction func composeAction(_ sender: UIBarButtonItem) {
+        if MFMessageComposeViewController.canSendText() {
+            // Message Compose component
+            let messageComposeVC = MFMessageComposeViewController()
+            messageComposeVC.messageComposeDelegate = self
+            self.present(messageComposeVC, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func readAllAction(_ sender: UIBarButtonItem) {
+        self.conversationPresenter.readAll()
+        self.isEdit = false
+    }
+    
+    @IBAction func deleteAction(_ sender: UIBarButtonItem) {
+        self.conversationPresenter.deleteConversation(arrConversation: self.arrDeleteConversation)
+        self.isEdit = false
     }
 }
 
@@ -251,18 +201,7 @@ extension ConversationTableViewController: UISearchResultsUpdating {
     }
     
     func search(text: String, scope: String = "All") {
-        if text.isEmpty {
-            self.refetchData()
-        } else {
-            let fetchRequest = NSFetchRequest<Conversation>(entityName: "Conversation")
-            fetchRequest.predicate = NSPredicate(format: "ANY messages.content CONTAINS %@", text)
-            do {
-                self.arrConverstation = try self.coreDataStack.context.fetch(fetchRequest)
-            } catch let err as NSError? {
-                print("Error = \(err!.userInfo)")
-            }
-        }
-        self.tableView.reloadData()
+        self.conversationPresenter.search(text: text)
     }
     
 }
@@ -271,7 +210,16 @@ extension ConversationTableViewController: UISearchResultsUpdating {
 extension ConversationTableViewController: MFMessageComposeViewControllerDelegate {
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        print("\(controller.recipients) | + \(controller.body)")
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+extension ConversationTableViewController: ConversationView {
+    
+    func showConversations(arrConversation: [Conversation]) {
+        self.arrConversation = arrConversation
+        self.tableView.reloadData()
     }
     
 }

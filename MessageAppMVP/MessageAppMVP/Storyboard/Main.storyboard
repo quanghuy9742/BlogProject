@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nMn-YS-WE2">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Messages-->
+        <scene sceneID="crc-kn-T6Y">
+            <objects>
+                <tableViewController id="tMq-2n-yqN" customClass="ConversationTableViewController" customModule="MessageApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Dgg-zd-4wO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="tMq-2n-yqN" id="Egz-4D-Wd5"/>
+                            <outlet property="delegate" destination="tMq-2n-yqN" id="u1v-l3-Dtt"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems>
+                        <barButtonItem title="Read All" id="M7y-8f-hRt">
+                            <connections>
+                                <action selector="readAllAction:" destination="tMq-2n-yqN" id="VGM-aL-UCP"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="o2q-JV-sw4"/>
+                        <barButtonItem title="Delete" id="v7j-aA-sPs">
+                            <connections>
+                                <action selector="deleteAction:" destination="tMq-2n-yqN" id="vBe-26-K7y"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Messages" id="cHg-rS-oYR">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="kHN-fL-kmw">
+                            <connections>
+                                <action selector="editAction:" destination="tMq-2n-yqN" id="CFA-uO-YvJ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="compose" id="R4t-2q-wO1">
+                            <connections>
+                                <action selector="composeAction:" destination="tMq-2n-yqN" id="fDq-bJ-lfQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="barBtnDelete" destination="v7j-aA-sPs" id="dAa-es-ouB"/>
+                        <outlet property="barBtnEdit" destination="kHN-fL-kmw" id="Xfv-lu-tjt"/>
+                        <outlet property="barBtnReadAll" destination="M7y-8f-hRt" id="nsT-dR-UZ2"/>
+                        <outlet property="searchDisplayController" destination="Nhy-h9-Ygs" id="aC9-FS-bqU"/>
+                        <segue destination="HAa-3k-Uki" kind="show" id="TST-uD-5EV"/>
+                        <segue destination="AJ3-KD-j9h" kind="show" id="bfw-91-F3k"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M3a-x0-MGh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="Nhy-h9-Ygs">
+                    <connections>
+                        <outlet property="delegate" destination="tMq-2n-yqN" id="YUf-yR-Ai5"/>
+                        <outlet property="searchContentsController" destination="tMq-2n-yqN" id="c5W-kx-0ev"/>
+                        <outlet property="searchResultsDataSource" destination="tMq-2n-yqN" id="ife-NB-j5O"/>
+                        <outlet property="searchResultsDelegate" destination="tMq-2n-yqN" id="DDY-0T-7ny"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="144.80000000000001" y="156.97151424287858"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ORt-qR-hkb">
+            <objects>
+                <viewController id="AJ3-KD-j9h" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="GE1-10-wyV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ucn-ZK-KTH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1025" y="-622"/>
+        </scene>
+        <!--Message Table View Controller-->
+        <scene sceneID="5ot-St-jVU">
+            <objects>
+                <tableViewController storyboardIdentifier="MessageTableViewController" id="HAa-3k-Uki" customClass="MessageTableViewController" customModule="MessageApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Nv7-N5-Jbt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="HAa-3k-Uki" id="bMH-Xc-Dah"/>
+                            <outlet property="delegate" destination="HAa-3k-Uki" id="dsk-fV-sMz"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WBn-cK-zgQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1025" y="157"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hKf-i1-y0R">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="nMn-YS-WE2" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BvZ-Hd-sG2">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Lc0-ev-xGe">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="tMq-2n-yqN" kind="relationship" relationship="rootViewController" id="1Ty-ok-SnH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6CV-nR-pJC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-674" y="157"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="compose" width="21" height="20"/>
+    </resources>
+</document>
