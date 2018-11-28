@@ -1,0 +1,25 @@
+[
+  '{{repeat(8)}}',
+  {
+    isRead: '{{bool()}}',
+    name: '{{random("Bill Gate", "Beyonce", "Nicki Minaj", "Mark Zuckerburg", "Taylor Swift", "Obama", "Jack Ma", "Donald Trump")}}',
+    picture: function getPic() {
+    return this.name + '.jpg';
+    },
+    phone: '+1 {{phone()}}',
+    messageReceive: [
+      '{{repeat(5, 10)}}',
+      {
+        date: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}',
+        content: '{{lorem(1, "paragraphs")}}'
+      }
+    ],
+    messageReply: [
+     '{{repeat(2, 5)}}',
+      {
+        date: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}',
+        content: '{{lorem(1, "paragraphs")}}'
+      }
+    ]
+  }
+]
