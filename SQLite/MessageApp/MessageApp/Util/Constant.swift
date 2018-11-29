@@ -19,9 +19,9 @@ class SQLiteQuery {
     static let insert_row_conversation = "INSERT INTO Conversation (imagePath, isRead, name, phone) VALUES (?, ?, ?, ?)"
     
     // Message
-    static let create_table_message = "CREATE TABLE IF NOT EXISTS Message (id INTEGER PRIMARY KEY AUTOINCREMENT, content text NOT NULL, date int NOT NULL, isReceive int NOT NULL)"
+    static let create_table_message = "CREATE TABLE IF NOT EXISTS Message (id INTEGER PRIMARY KEY AUTOINCREMENT, conversationId INTEGER NOT NULL, content text NOT NULL, date INTEGER NOT NULL, isReceive INTEGER NOT NULL)"
     
-    static let insert_row_message = "INSERT INTO Message (content, date, isReceive) VALUES (?, ?, ?)"
+    static let insert_row_message = "INSERT INTO Message (conversationId, content, date, isReceive) VALUES (?, ?, ?, ?)"
 }
 
 class Constant {

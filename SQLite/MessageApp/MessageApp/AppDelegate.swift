@@ -26,17 +26,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func loadMessageData(json: String) -> Bool {
-        // Remove all data if need
-        if let count = SQLiteStack.shared.readConversations(query: SQLiteQuery.get_all_conversation)?.count, count > 0 {
-            return false
+        // Check exist
+        if !SQLiteStack.shared.isExist(table: "Conversation") {
+            
+            // Create table
+            let _ = SQLiteStack.shared.createTable(query: SQLiteQuery.create_table_conversation)
+            let _ = SQLiteStack.shared.createTable(query: SQLiteQuery.create_table_message)
         }
+        
+        // Remove all data if need
+        if let count = SQLiteStack.shared.readConversations()?.count, count > 0 {return false}
         
         if let jsonURL = Bundle.main.url(forResource: json, withExtension: ".json") {
             do {
-                // Create table CONVERSATION
-                if !SQLiteStack.shared.createTable(query: SQLiteQuery.create_table_conversation) {return false}
-                if !SQLiteStack.shared.createTable(query: SQLiteQuery.create_table_message) {return false}
-                
                 // Parse file to json data
                 let jsonData = try Data(contentsOf: jsonURL)
                 guard let arrDictionary = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [[String: Any]] else {return false}
@@ -59,10 +61,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     conversation.arrMessage.append(contentsOf: self.getMessage(from: arrMessageReplyDic))
                     
                     // Insert CONVERSATION ROW
-                    if !SQLiteStack.shared.insertConversation(conversation: conversation) {return}
-                    
+                    guard let lastConversationId = SQLiteStack.shared.insertConversation(conversation: conversation) else {return}
+        
                     conversation.arrMessage.forEach({ (message) in
-                        if !SQLiteStack.shared.insertMessage(message: message) {return}
+                        message.conversationId = lastConversationId
+                        print("Content: \(message.content)")
+                        if let lastId = SQLiteStack.shared.insertMessage(message: message) {
+                            print("Content last id: \(lastId)")
+                        }
                     })
                 }
                 
@@ -87,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let content = dic["content"] as! String
             
             // Message
-            let message = Message(content: content, date: date!, isReceive: isReceive)
+            let message = Message(conversationId: 0, content: content, date: date!, isReceive: isReceive)
             arrMessage.append(message)
         }
         return arrMessage

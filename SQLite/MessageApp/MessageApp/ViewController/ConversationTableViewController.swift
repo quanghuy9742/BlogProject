@@ -89,6 +89,10 @@ class ConversationTableViewController: UITableViewController {
     }
     
     func refetchData() {
+        if let arrConversation = SQLiteStack.shared.readConversations() {
+            self.arrConverstation = arrConversation
+            self.tableView.reloadData()
+        }
     }
     
     func getSortedMessageByDate(from conversation: Conversation) -> [Message] {
